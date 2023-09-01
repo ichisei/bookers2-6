@@ -5,6 +5,10 @@ class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
     @book_comment = BookComment.new
+    unless ReadCount.where(created_at: Time.zone.now.all_day).find_by(user_id: current_user.id, book_id: @book.id)
+      read_count = ReadCount.new(book_id: @book.id, user_id: current_user.id)
+      read_count.save
+    end
   end
 
   def index
