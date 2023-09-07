@@ -19,10 +19,12 @@ class BooksController < ApplicationController
       b.favorites.where(created_at: from...to).size <=>
       a.favorites.where(created_at: from...to).size
     }
+    # @books = Book.includes(:favorited_users).
+    #   sort_by {|x|
+    #     x.favorited_users.includes(:favorites).where(created_at: from...to).size
+    #   }
+
     @book = Book.new
-      # sort_by {|x|
-      #   x.favorited_users.includes(:favorites).where(created_at: from...to).size
-      # }.reverse
   end
 
   def create
